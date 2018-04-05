@@ -1,8 +1,7 @@
 from sklearn.ensemble.bagging import BaggingClassifier
 from sklearn.ensemble.forest import RandomForestClassifier
 
-from sklearn.model_selection import cross_val_score
-from sklearn.metrics import accuracy_score
+from sklearn.model_selection import cross_validate
 from datasets.YeastDataset import YeastDataset
 from datasets.CarEvaluationDataset import CarEvaluationDataset
 
@@ -18,6 +17,11 @@ models = {
     "Random Forest Classifier": RandomForestClassifier()
 }
 
+scoring = {
+    "accuracy": "accuracy",
+    "f1_macro": "f1_macro"
+}
+
 results = {}
 
 # Train each model for each dataset on a N-Fold Cross Validation
@@ -29,10 +33,11 @@ for dataset_name in datasets:
         model = models[model_name]
 
         # F1-Macro for now, will add more later on
-        scores = cross_val_score(X=dataset.get_x(), y=dataset.get_y(), estimator=model, scoring="f1_macro", cv=5)
+        scores = cross_validate(X=dataset.get_x(), y=dataset.get_y(), estimator=model, scoring=scoring, cv=5)
 
         model_results[model_name] = {}
-        model_results[model_name]["f1_macro"] = np.mean(scores)
+        for score in scoring:
+            model_results[model_name][score] = np.mean(scores["test_"+score])
 
     results[dataset_name] = model_results
 
