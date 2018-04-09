@@ -1,4 +1,4 @@
-from Dataset import Dataset
+from datasets.Dataset import Dataset
 
 class CarEvaluationDataset(Dataset):
 
@@ -27,11 +27,11 @@ class CarEvaluationDataset(Dataset):
             self._y.append(data[-1])
 
         # Discretize Y
-        self._y = self.discretize(self._y)
+        self._y = self.enumerate(self._y)
 
         # Discretize X columns
         for i in range(len(x_columns)):
-            x_columns[i] = self.discretize(x_columns[i])
+            x_columns[i] = self.enumerate(x_columns[i])
 
         # Join X columns in rows
         for i in range(len(self._y)):

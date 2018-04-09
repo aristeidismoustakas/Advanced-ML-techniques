@@ -1,4 +1,4 @@
-from Dataset import Dataset
+from datasets.Dataset import Dataset
 
 class YeastDataset(Dataset):
 
@@ -21,4 +21,4 @@ class YeastDataset(Dataset):
 
             self._y.append(data[-1])
 
-        self._y = self.discretize(self._y)
+        self._y = self.enumerate(self._y)

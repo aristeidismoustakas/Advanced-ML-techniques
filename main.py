@@ -4,22 +4,26 @@ from sklearn.ensemble.forest import RandomForestClassifier
 from sklearn.model_selection import cross_validate
 from datasets.YeastDataset import YeastDataset
 from datasets.CarEvaluationDataset import CarEvaluationDataset
+from datasets.IncomeDataset import IncomeDataset
+from datasets.WineQualityDataset import WineQualityDataset
+from datasets.BankCustomerDataset import BankCustomerDataset
 
 import numpy as np
 
 datasets = {
-    "Yeast": YeastDataset("datasets/files/yeast.data"),
-    "Car Evaluation": CarEvaluationDataset("datasets/files/car.data")
+    'Yeast': YeastDataset('datasets/files/yeast.data'),
+    'Car Evaluation': CarEvaluationDataset('datasets/files/car.data'),
+    'Wine Quality': WineQualityDataset('datasets/files/winequality')
 }
 
 models = {
-    "Bagging Classifier": BaggingClassifier(),
-    "Random Forest Classifier": RandomForestClassifier()
+    'Bagging Classifier': BaggingClassifier(),
+    'Random Forest Classifier': RandomForestClassifier()
 }
 
 scoring = {
-    "accuracy": "accuracy",
-    "f1_macro": "f1_macro"
+    'accuracy': 'accuracy',
+    'f1_macro': 'f1_macro'
 }
 
 results = {}
@@ -27,6 +31,7 @@ results = {}
 # Train each model for each dataset on a N-Fold Cross Validation
 for dataset_name in datasets:
     dataset = datasets[dataset_name]
+    dataset.preprocessing()
     model_results = {}
 
     for model_name in models:
@@ -37,16 +42,16 @@ for dataset_name in datasets:
 
         model_results[model_name] = {}
         for score in scoring:
-            model_results[model_name][score] = np.mean(scores["test_"+score])
+            model_results[model_name][score] = np.mean(scores['test_'+score])
 
     results[dataset_name] = model_results
 
-print("Results:")
+print('Results:')
 for dataset_name in datasets:
-    print("Dataset: {}".format(dataset_name))
+    print('Dataset: {}'.format(dataset_name))
 
     for model_name in models:
-        print("\tModel: {}".format(model_name))
+        print('\tModel: {}'.format(model_name))
 
         for metric in results[dataset_name][model_name]:
-            print("\t\t{}: {}".format(metric, results[dataset_name][model_name][metric]))
+            print('\t\t{}: {}'.format(metric, results[dataset_name][model_name][metric]))
