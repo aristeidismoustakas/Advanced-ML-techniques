@@ -30,8 +30,10 @@ results = {}
 
 # Train each model for each dataset on a N-Fold Cross Validation
 for dataset_name in datasets:
+
     dataset = datasets[dataset_name]
     dataset.preprocessing()
+
     model_results = {}
 
     for model_name in models:

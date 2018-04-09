@@ -1,43 +1,27 @@
 from datasets.Dataset import Dataset
+from sklearn import preprocessing
+import pandas as pd
+
+# https://archive.ics.uci.edu/ml/machine-learning-databases/car/
 
 class CarEvaluationDataset(Dataset):
 
     def __init__(self, data_file):
         super(CarEvaluationDataset, self).__init__()
 
-        lines = []
-        with open(data_file, "r") as f:
-            lines = f.readlines()
+        df = pd.read_csv(data_file, delimiter=",")
+        df.columns = ["buying", "maint", "doors", "persons", "lug_boot", "safety", "class"]
 
-        x_columns = []
+        door_mapping = {"1": 0, "2": 1, "3": 2, "4": 3, "5more": 4}
+        person_mapping = {"2": 0, "4": 1, "more": 2}
 
-        for line in lines:
-            if line.endswith("\n"):
-                line = line[:-1]
+        df["doors"] = df["doors"].apply(lambda x: door_mapping[x])
+        df["persons"] = df["persons"].apply(lambda x: person_mapping[x])
 
-            data = line.split(",")
+        for col in df.columns:
+            if col not in ["door", "persons"]:
+                l_enc = preprocessing.LabelEncoder()
+                df[col] = l_enc.fit_transform(df[col])
 
-            if x_columns == []:
-                for i in range(len(data[:-1])):
-                    x_columns.append([])
-
-            for index, val in enumerate(data[:-1]):
-                x_columns[index].append(val)
-
-            self._y.append(data[-1])
-
-        # Discretize Y
-        self._y = self.enumerate(self._y)
-
-        # Discretize X columns
-        for i in range(len(x_columns)):
-            x_columns[i] = self.enumerate(x_columns[i])
-
-        # Join X columns in rows
-        for i in range(len(self._y)):
-            x_row = []
-            for j in range(len(x_columns)):
-                x_row.append(x_columns[j][i])
-
-            self._x.append(x_row)
-
+        self._x = df.iloc[:, :-1]
+        self._y = df.iloc[:, -1]

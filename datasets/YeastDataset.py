@@ -1,24 +1,19 @@
 from datasets.Dataset import Dataset
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 
 class YeastDataset(Dataset):
 
     def __init__(self, data_file):
         super(YeastDataset, self).__init__()
 
-        lines = []
-        with open(data_file, "r") as f:
-            lines = f.readlines()
+        df = pd.read_csv(data_file, delim_whitespace=True)
+        df.columns = ["seq", "mcg", "gvh", "alm", "mit", "erl", "pox", "vac", "nuc", "class"]
+        df = df.drop("seq", 1)
 
-        for line in lines:
-            # Remove \n
-            if line.endswith("\n"):
-                line = line[:-1]
+        for col in df.columns:
+            if col != "class":
+                df[col] = pd.to_numeric(df[col])
 
-            data = line.split()
-
-            # First attribute is label, ignore
-            self._x.append([float(val) for val in data[1:-1]])
-
-            self._y.append(data[-1])
-
-        self._y = self.enumerate(self._y)
+        self._x = df.iloc[:, :-1]
+        self._y = df.iloc[:, -1]
