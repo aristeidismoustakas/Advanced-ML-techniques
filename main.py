@@ -11,13 +11,16 @@ from datasets.WineQualityDataset import WineQualityDataset
 from datasets.BankCustomerDataset import BankCustomerDataset
 
 import numpy as np
+import pandas as pd
+from sklearn import preprocessing
 
 datasets = {
     "Yeast": YeastDataset("datasets/files/yeast.data"),
     "Car Evaluation": CarEvaluationDataset("datasets/files/car.data"),
     "Letter Recognition Dataset": LetterRecognitionDataset("datasets/files/letter-recognition.data"),
     "Image Segmantation Dataset": ImageSegmentationDataset("datasets/files/segmentation.data"),
-    'Wine Quality': WineQualityDataset('datasets/files/winequality')
+    'Wine Quality': WineQualityDataset('datasets/files/winequality'),
+    'Income Evaluation': IncomeDataset('datasets/files/income.data')
 }
 
 models = {

@@ -8,7 +8,7 @@ class WineQualityDataset(Dataset):
         super(WineQualityDataset, self).__init__()
 
         # Loading the 2 files with the red and the white wines.
-        red_wines= pd.read_csv((data_file + '-red.csv'), delimiter=';', header=0)
+        red_wines = pd.read_csv((data_file + '-red.csv'), delimiter=';', header=0)
         white_wines = pd.read_csv(data_file + '-white.csv', delimiter=';', header=0)
 
         # Concat the two arrays in one.

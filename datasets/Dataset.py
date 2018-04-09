@@ -16,6 +16,9 @@ class Dataset(object):
     def preprocessing(self):
         pass
 
+    def removeNA(self):
+        pass
+
     def normalize(self, data):
         """
         Normalizes an array of data in the interval 0-1
@@ -25,7 +28,7 @@ class Dataset(object):
         new_data = preprocessing.normalize(data, norm='max', axis=0)
         return new_data
 
-    def one_hot(self, data, col, weight=1):
+    def one_hot_encoding(self, data, col, weight=1):
         """
         One-hot encoding for a column of an array.
         We want to apply the one-hot encoding to a
@@ -38,11 +41,13 @@ class Dataset(object):
         calculation of distances of some algorithms.
         :param data: Array of data (2-D array of elements)
         :param col: The column for the one-hot encoding
+        :param weight: Weight for the mitigation of
+        the effect of the 0-1 values in the calculation
+        of distances.
         :return: 2-D array with the new columns
         """
-
         one_hot = pd.get_dummies(data[col])
-        data = data.drop('Embarked', axis=1)
+        data = data.drop(col, axis=1)
         data = data * weight
         new_data = data.join(one_hot)
 
