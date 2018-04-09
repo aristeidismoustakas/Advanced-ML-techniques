@@ -4,6 +4,8 @@ from sklearn.ensemble.forest import RandomForestClassifier
 from sklearn.model_selection import cross_validate
 from datasets.YeastDataset import YeastDataset
 from datasets.CarEvaluationDataset import CarEvaluationDataset
+from datasets.LetterRecognitionDataset import LetterRecognitionDataset
+from datasets.ImageSegmentationDataset import ImageSegmentationDataset
 from datasets.IncomeDataset import IncomeDataset
 from datasets.WineQualityDataset import WineQualityDataset
 from datasets.BankCustomerDataset import BankCustomerDataset
@@ -11,8 +13,10 @@ from datasets.BankCustomerDataset import BankCustomerDataset
 import numpy as np
 
 datasets = {
-    'Yeast': YeastDataset('datasets/files/yeast.data'),
-    'Car Evaluation': CarEvaluationDataset('datasets/files/car.data'),
+    "Yeast": YeastDataset("datasets/files/yeast.data"),
+    "Car Evaluation": CarEvaluationDataset("datasets/files/car.data"),
+    "Letter Recognition Dataset": LetterRecognitionDataset("datasets/files/letter-recognition.data"),
+    "Image Segmantation Dataset": ImageSegmentationDataset("datasets/files/segmentation.data"),
     'Wine Quality': WineQualityDataset('datasets/files/winequality')
 }
 
