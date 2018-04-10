@@ -1,13 +1,16 @@
 from datasets.Dataset import Dataset
 import pandas as pd
+import numpy as np
 
 
 class IncomeDataset(Dataset):
 
     def __init__(self, data_file):
         super(IncomeDataset, self).__init__()
-        dataset = pd.read_csv(data_file, delimiter=',', header=None)
-        dataset.columns = ['age', 'workclass', 'fnlwgt', 'education', 'education_num', 'marital_status', 'occupation', 'relationship', 'race', 'sex', 'capital_gain', 'capital_loss', 'hours_per_week', 'native_country', 'y']
+        dataset = pd.read_csv(data_file, delimiter=r',\s', header=None)  # We use r because delimiter is a regular expression.
+        dataset.columns = ['age', 'workclass', 'fnlwgt', 'education', 'education_num', 'marital_status', 'occupation',
+                           'relationship','race', 'sex', 'capital_gain', 'capital_loss', 'hours_per_week',
+                           'native_country', 'y']
         self._x = dataset.iloc[:, 0:-1]
         self._y = dataset.iloc[:, -1]
 
@@ -35,6 +38,7 @@ class IncomeDataset(Dataset):
         in their attributes.
         """
         dataset = pd.concat([self.get_x(), self.get_y()], axis=1)
+        dataset = dataset.replace('?', np.nan)
         dataset = dataset.dropna(axis=0, how='any')
         self._x = dataset.iloc[:, 0:-1]
         self._y = dataset.iloc[:, -1]
