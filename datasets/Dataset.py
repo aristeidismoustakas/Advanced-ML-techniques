@@ -47,6 +47,7 @@ class Dataset(object):
         :return: 2-D array with the new columns
         """
         one_hot = pd.get_dummies(data[col])
+        one_hot.columns = [col + str(column) for column in one_hot.columns]
         data = data.drop(col, axis=1)
         data = data * weight
         new_data = data.join(one_hot)
