@@ -29,7 +29,7 @@ class IncomeDataset(Dataset):
             expl_vars = self.one_hot_encoding(expl_vars, attr)
 
         norm_expl_vars = self.normalize(expl_vars)
-        self._x = pd.DataFrame(data = norm_expl_vars)
+        self._x = pd.DataFrame(data=norm_expl_vars)
 
     def removeNA(self):
         """

@@ -20,7 +20,8 @@ datasets = {
     "Letter Recognition Dataset": LetterRecognitionDataset("datasets/files/letter-recognition.data"),
     "Image Segmantation Dataset": ImageSegmentationDataset("datasets/files/segmentation.data"),
     'Wine Quality': WineQualityDataset('datasets/files/winequality'),
-    'Income Evaluation': IncomeDataset('datasets/files/income.data')
+    'Income Evaluation': IncomeDataset('datasets/files/income.data'),
+    'Bank Customer': BankCustomerDataset('datasets/files/bank-additional.csv')
 }
 
 models = {

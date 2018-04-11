@@ -18,3 +18,17 @@ class WineQualityDataset(Dataset):
         self._x = dataset.iloc[:, 0:-1]
         self._y = dataset.iloc[:, -1]
 
+    def preprocessing(self):
+        """
+        Preproccesing of the explanatory variables.
+        At first we remove the NA values, next we
+        apply one-hot encoding to the columns that is
+        necessary and finally we normalize our data in
+        the interval 0-1.
+        """
+        self.removeNA()
+        expl_vars = self.get_x()
+
+        norm_expl_vars = self.normalize(expl_vars)
+        self._x = pd.DataFrame(data=norm_expl_vars)
+
