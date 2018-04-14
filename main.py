@@ -1,6 +1,7 @@
 from sklearn.ensemble.bagging import BaggingClassifier
 from sklearn.ensemble.forest import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 
 from sklearn.model_selection import cross_validate
 from datasets.YeastDataset import YeastDataset
@@ -11,14 +12,11 @@ from datasets.IncomeDataset import IncomeDataset
 from datasets.WineQualityDataset import WineQualityDataset
 from datasets.BankCustomerDataset import BankCustomerDataset
 from datasets.MammMassDataset import MammMassDataset
-"""
-from datasets.MushroomDataset import MushroomDataset
+#from datasets.MushroomDataset import MushroomDataset
 from datasets.TicTacToeDataset import TicTacToeDataset
-"""
+
 
 import numpy as np
-import pandas as pd
-from sklearn import preprocessing
 
 datasets = {
     "Yeast": YeastDataset("datasets/files/yeast.data"),
@@ -28,15 +26,16 @@ datasets = {
     'Wine Quality': WineQualityDataset('datasets/files/winequality'),
     'Income Evaluation': IncomeDataset('datasets/files/income.data'),
     'Bank Customer': BankCustomerDataset('datasets/files/bank-additional.csv'),
-    'Mammographic Masses': MammMassDataset('datasets/files/mammographic-masses.data')
+    'Mammographic Masses': MammMassDataset('datasets/files/mammographic-masses.data'),
     #'Mushroom': MushroomDataset('datasets/files/mushroom.data'),
-    #'Tic Tac Toe': TicTacToeDataset('datasets/files/tic-tac-toe.data')
+    'Tic Tac Toe': TicTacToeDataset('datasets/files/tic-tac-toe.data')
 }
 
 models = {
     'Bagging Classifier': BaggingClassifier(),
     'Random Forest Classifier': RandomForestClassifier(),
-    'AdaBoost Classifier': AdaBoostClassifier()
+    'AdaBoost Classifier': AdaBoostClassifier(),
+    'Gradient Boosting Classifier': GradientBoostingClassifier()
 }
 
 scoring = {
