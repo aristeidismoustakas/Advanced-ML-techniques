@@ -1,5 +1,6 @@
 from sklearn.ensemble.bagging import BaggingClassifier
 from sklearn.ensemble.forest import RandomForestClassifier
+from sklearn.ensemble import AdaBoostClassifier
 
 from sklearn.model_selection import cross_validate
 from datasets.YeastDataset import YeastDataset
@@ -26,7 +27,8 @@ datasets = {
 
 models = {
     'Bagging Classifier': BaggingClassifier(),
-    'Random Forest Classifier': RandomForestClassifier()
+    'Random Forest Classifier': RandomForestClassifier(),
+    'AdaBoost Classifier': AdaBoostClassifier()
 }
 
 scoring = {
