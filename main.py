@@ -9,6 +9,11 @@ from datasets.ImageSegmentationDataset import ImageSegmentationDataset
 from datasets.IncomeDataset import IncomeDataset
 from datasets.WineQualityDataset import WineQualityDataset
 from datasets.BankCustomerDataset import BankCustomerDataset
+from datasets.MammMassDataset import MammMassDataset
+"""
+from datasets.MushroomDataset import MushroomDataset
+from datasets.TicTacToeDataset import TicTacToeDataset
+"""
 
 import numpy as np
 import pandas as pd
@@ -22,6 +27,11 @@ datasets = {
     'Wine Quality': WineQualityDataset('datasets/files/winequality'),
     'Income Evaluation': IncomeDataset('datasets/files/income.data'),
     'Bank Customer': BankCustomerDataset('datasets/files/bank-additional.csv')
+    'Mammographic Masses': MammMassDataset('datasets/files/mammographic-masses.data')
+    """
+    'Mushroom': MushroomDataset('datasets/files/mushroom.data')
+    'Tic Tac Toe': TicTacToeDataset('datasets/files/tic-tac-toe.data')
+    """
 }
 
 models = {
@@ -65,3 +75,7 @@ for dataset_name in datasets:
 
         for metric in results[dataset_name][model_name]:
             print('\t\t{}: {}'.format(metric, results[dataset_name][model_name][metric]))
+
+dataset = MammMassDataset('datasets/files/mammographic-masses.data')
+dataset.get_x().shape
+dataset.preprocessing()
