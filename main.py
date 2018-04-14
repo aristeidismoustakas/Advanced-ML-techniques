@@ -27,12 +27,10 @@ datasets = {
     "Image Segmantation Dataset": ImageSegmentationDataset("datasets/files/segmentation.data"),
     'Wine Quality': WineQualityDataset('datasets/files/winequality'),
     'Income Evaluation': IncomeDataset('datasets/files/income.data'),
-    'Bank Customer': BankCustomerDataset('datasets/files/bank-additional.csv')
+    'Bank Customer': BankCustomerDataset('datasets/files/bank-additional.csv'),
     'Mammographic Masses': MammMassDataset('datasets/files/mammographic-masses.data')
-    """
-    'Mushroom': MushroomDataset('datasets/files/mushroom.data')
-    'Tic Tac Toe': TicTacToeDataset('datasets/files/tic-tac-toe.data')
-    """
+    #'Mushroom': MushroomDataset('datasets/files/mushroom.data'),
+    #'Tic Tac Toe': TicTacToeDataset('datasets/files/tic-tac-toe.data')
 }
 
 models = {
@@ -77,7 +75,3 @@ for dataset_name in datasets:
 
         for metric in results[dataset_name][model_name]:
             print('\t\t{}: {}'.format(metric, results[dataset_name][model_name][metric]))
-
-dataset = MammMassDataset('datasets/files/mammographic-masses.data')
-dataset.get_x().shape
-dataset.preprocessing()
