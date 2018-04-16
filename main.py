@@ -2,6 +2,8 @@ from sklearn.ensemble.bagging import BaggingClassifier
 from sklearn.ensemble.forest import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+
 
 from sklearn.model_selection import cross_validate
 from datasets.YeastDataset import YeastDataset
@@ -11,10 +13,12 @@ from datasets.ImageSegmentationDataset import ImageSegmentationDataset
 from datasets.IncomeDataset import IncomeDataset
 from datasets.WineQualityDataset import WineQualityDataset
 from datasets.BankCustomerDataset import BankCustomerDataset
+from datasets.MammMassDataset import MammMassDataset
+#from datasets.MushroomDataset import MushroomDataset
+from datasets.TicTacToeDataset import TicTacToeDataset
+
 
 import numpy as np
-import pandas as pd
-from sklearn import preprocessing
 
 datasets = {
     "Yeast": YeastDataset("datasets/files/yeast.data"),
@@ -23,14 +27,19 @@ datasets = {
     "Image Segmantation Dataset": ImageSegmentationDataset("datasets/files/segmentation.data"),
     'Wine Quality': WineQualityDataset('datasets/files/winequality'),
     'Income Evaluation': IncomeDataset('datasets/files/income.data'),
-    'Bank Customer': BankCustomerDataset('datasets/files/bank-additional.csv')
+    'Bank Customer': BankCustomerDataset('datasets/files/bank-additional.csv'),
+    'Mammographic Masses': MammMassDataset('datasets/files/mammographic-masses.data'),
+    #'Mushroom': MushroomDataset('datasets/files/mushroom.data'),
+    'Tic Tac Toe': TicTacToeDataset('datasets/files/tic-tac-toe.data')
 }
 
 models = {
     'Bagging Classifier': BaggingClassifier(),
     'Random Forest Classifier': RandomForestClassifier(),
     'AdaBoost Classifier binary': AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), algorithm="SAMME", n_estimators=200),
-    'AdaBoost Classifier multiclass': AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),n_estimators=600, learning_rate=1.5, algorithm="SAMME")
+    'AdaBoost Classifier multiclass': AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),n_estimators=600, learning_rate=1.5, algorithm="SAMME"),
+    'AdaBoost Classifier': AdaBoostClassifier(),
+    'Gradient Boosting Classifier': GradientBoostingClassifier()
 }
 
 scoring = {
