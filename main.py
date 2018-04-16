@@ -37,8 +37,8 @@ models = {
     'Bagging Classifier': BaggingClassifier(),
     'Random Forest Classifier': RandomForestClassifier(),
     'AdaBoost Classifier binary': AdaBoostClassifier(DecisionTreeClassifier(max_depth=1), algorithm="SAMME", n_estimators=200),
-    'AdaBoost Classifier multiclass': AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),n_estimators=600, learning_rate=1.5, algorithm="SAMME"),
-    'AdaBoost Classifier': AdaBoostClassifier(),
+    #'AdaBoost Classifier multiclass': AdaBoostClassifier(DecisionTreeClassifier(max_depth=2),n_estimators=600, learning_rate=1.5, algorithm="SAMME"),
+    #'AdaBoost Classifier': AdaBoostClassifier(),
     'Gradient Boosting Classifier': GradientBoostingClassifier()
 }
 
