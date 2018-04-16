@@ -10,7 +10,7 @@ class MushroomDataset(Dataset):
         dataset.columns = ['y', 'cap_shape', 'cap_surface', 'cap_color', 'bruises', 'odor', 'gill_attachment', 'gill_spacing', 'gill_size', 'gill_color',
                            'stalk_shape', 'stalk_root', 'stalk_surface_above_ring', 'stalk_surface_below_ring', 'stalk_color_above_ring', 'stalk_color_below_ring',
                            'veil_type', 'veil_color', 'ring_number', 'ring_type', 'spore_print_color', 'population', 'habitat']
-        self._x = dataset.iloc[:, 'cap_shape':'habitat']
+        self._x = dataset.iloc[:, 1:]
         self._y = dataset.iloc[:, 0]
 
         """
@@ -25,7 +25,7 @@ class MushroomDataset(Dataset):
         expl_vars = self.get_x()
 
         one_hot_list = ['cap_shape', 'cap_surface', 'cap_color', 'bruises', 'odor', 'gill_attachment', 'gill_spacing', 'gill_size', 'gill_color',
-                           'stalk_shape', 'stalk_root', 'stalk_surface_above_ring', 'stalk_color_above_ring', 'stalk_color_below_ring',
+                           'stalk_shape', 'stalk_root', 'stalk_surface_above_ring', 'stalk_surface_below_ring', 'stalk_color_above_ring', 'stalk_color_below_ring',
                            'veil_type', 'veil_color', 'ring_number', 'ring_type', 'spore_print_color', 'population', 'habitat']
         for attr in one_hot_list:
             expl_vars = self.one_hot_encoding(expl_vars,attr)
@@ -37,5 +37,5 @@ class MushroomDataset(Dataset):
         dataset = pd.concat([self.get_x(), self.get_y()], axis=1)
         dataset = dataset.replace('?', np.nan)
         dataset = dataset.dropna(axis=0, how='any')
-        self._x = dataset.iloc[:, 'cap_shape':'habitat']
+        self._x = dataset.iloc[:, 1:]
         self._y = dataset.iloc[:, 0]

@@ -14,7 +14,7 @@ from datasets.IncomeDataset import IncomeDataset
 from datasets.WineQualityDataset import WineQualityDataset
 from datasets.BankCustomerDataset import BankCustomerDataset
 from datasets.MammMassDataset import MammMassDataset
-#from datasets.MushroomDataset import MushroomDataset
+from datasets.MushroomDataset import MushroomDataset
 from datasets.TicTacToeDataset import TicTacToeDataset
 
 
@@ -29,7 +29,7 @@ datasets = {
     'Income Evaluation': IncomeDataset('datasets/files/income.data'),
     'Bank Customer': BankCustomerDataset('datasets/files/bank-additional.csv'),
     'Mammographic Masses': MammMassDataset('datasets/files/mammographic-masses.data'),
-    #'Mushroom': MushroomDataset('datasets/files/mushroom.data'),
+    'Mushroom': MushroomDataset('datasets/files/mushroom.data'),
     'Tic Tac Toe': TicTacToeDataset('datasets/files/tic-tac-toe.data')
 }
 
