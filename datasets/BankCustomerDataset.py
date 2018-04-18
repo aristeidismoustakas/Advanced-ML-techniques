@@ -1,7 +1,6 @@
-from datasets.Dataset import Dataset
-import pandas as pd
 import numpy as np
-from sklearn import preprocessing
+import pandas as pd
+from datasets.Dataset import Dataset
 
 
 class BankCustomerDataset(Dataset):

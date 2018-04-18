@@ -1,6 +1,7 @@
+import pandas as pd
 from datasets.Dataset import Dataset
 from sklearn import preprocessing
-import pandas as pd
+
 
 # https://archive.ics.uci.edu/ml/machine-learning-databases/car/
 

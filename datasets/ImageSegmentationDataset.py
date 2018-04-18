@@ -1,5 +1,6 @@
-from datasets.Dataset import Dataset
 import pandas as pd
+from datasets.Dataset import Dataset
+
 
 # https://archive.ics.uci.edu/ml/datasets/Image+Segmentation
 

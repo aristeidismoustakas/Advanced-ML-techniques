@@ -1,24 +1,24 @@
-from sklearn.ensemble.bagging import BaggingClassifier
-from sklearn.ensemble.forest import RandomForestClassifier
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import GradientBoostingClassifier
-
-
-from sklearn.model_selection import cross_validate
-from datasets.YeastDataset import YeastDataset
+import numpy as np
+from datasets.BankCustomerDataset import BankCustomerDataset
 from datasets.CarEvaluationDataset import CarEvaluationDataset
-from datasets.LetterRecognitionDataset import LetterRecognitionDataset
 from datasets.ImageSegmentationDataset import ImageSegmentationDataset
 from datasets.IncomeDataset import IncomeDataset
-from datasets.WineQualityDataset import WineQualityDataset
-from datasets.BankCustomerDataset import BankCustomerDataset
+from datasets.LetterRecognitionDataset import LetterRecognitionDataset
 from datasets.MammMassDataset import MammMassDataset
 from datasets.MushroomDataset import MushroomDataset
 from datasets.TicTacToeDataset import TicTacToeDataset
+from datasets.WineQualityDataset import WineQualityDataset
+from datasets.YeastDataset import YeastDataset
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble.bagging import BaggingClassifier
+from sklearn.ensemble.forest import RandomForestClassifier
+from sklearn.model_selection import cross_validate
+from sklearn.tree import DecisionTreeClassifier
 
-
-import numpy as np
+import os
+if not os.path.exists("datasets"):
+    os.chdir("..")
 
 datasets = {
     "Yeast": YeastDataset("datasets/files/yeast.data"),

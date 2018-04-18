@@ -1,6 +1,6 @@
-from datasets.Dataset import Dataset
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from datasets.Dataset import Dataset
+
 
 class YeastDataset(Dataset):
 

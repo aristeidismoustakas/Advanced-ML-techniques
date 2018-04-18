@@ -1,3 +1,6 @@
+import os
+if not os.path.exists("datasets"):
+    os.chdir("..")
 
 techniques = {
 

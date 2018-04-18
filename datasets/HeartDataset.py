@@ -1,5 +1,5 @@
-from datasets.Dataset import Dataset
 import pandas as pd
+from datasets.Dataset import Dataset
 
 
 class HeartDataset(Dataset):
@@ -33,3 +33,5 @@ class HeartDataset(Dataset):
         norm_expl_vars = self.normalize(expl_vars)
         self._x = pd.DataFrame(data=norm_expl_vars)
 
+        # Classes are labels of 1, 2 - bring them to 0, 1
+        self._y = self._y.apply(lambda x: x-1)
