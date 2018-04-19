@@ -1,3 +1,10 @@
+from sklearn.model_selection import cross_validate
+from datasets.CreditCardFraudDataset import CreditCardFraudDataset
+
+dataset = CreditCardFraudDataset('datasets/files/creditcard.csv')
+dataset.preprocessing()
+
+
 import os
 if not os.path.exists("datasets"):
     os.chdir("..")
