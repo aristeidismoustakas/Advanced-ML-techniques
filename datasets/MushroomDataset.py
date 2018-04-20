@@ -35,7 +35,7 @@ class MushroomDataset(Dataset):
         self._x = pd.DataFrame(data=norm_expl_vars)
 
     def removeNA(self):
-        dataset = pd.concat([self.get_x(), self.get_y()], axis=1)
+        dataset = pd.concat([self.get_y(), self.get_x()], axis=1)
         dataset = dataset.replace('?', np.nan)
         dataset = dataset.dropna(axis=0, how='any')
         self._x = dataset.iloc[:, 1:]
