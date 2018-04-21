@@ -1,4 +1,4 @@
-from Technique import Technique
+from .Technique import Technique
 
 class Base(Technique):
 
