@@ -1,4 +1,4 @@
-from techniques.Technique import Technique
+from .Technique import Technique
 
 class Costing(Technique):
 
