@@ -8,6 +8,7 @@ sys.path.insert(0, 'PartB-CostSensitiveLearning')
 import numpy as np
 from techniques.CSRoulette import CSRoulette
 from techniques.Costing import Costing
+from techniques.Stratification import Stratification
 from techniques.Base import Base
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
@@ -64,7 +65,8 @@ cost_matrix = [
 techniques = {
     "Base": (Base, {}),
     "CSRoulette": (CSRoulette, {"n_estimators": 10}),
-    "Costing": (Costing, {"n_estimators": 10})
+    "Costing": (Costing, {"n_estimators": 10}),
+    "Stratification": (Stratification, {})
 }
 
 models = {
