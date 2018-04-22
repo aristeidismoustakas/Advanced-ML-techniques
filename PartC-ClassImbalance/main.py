@@ -1,9 +1,10 @@
 import os
 import sys
-sys.path.insert(0, 'PartC-CostSensitiveLearning')
+sys.path.insert(0, 'PartC-ClassImbalance')
 
 import numpy as np
 from techniques.Base import Base
+from techniques.EasyEnsemble import EasyEnsemble
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import KFold
@@ -18,25 +19,12 @@ if not os.path.exists("datasets"):
 dataset = CreditCardFraudDataset('datasets/files/creditcard.csv')
 dataset.preprocessing()
 
-def to_label(prob):
-    if prob > 0.5:
-        return 1
-    else:
-        return 0
 
-def classification_cost(y_true, y_pred, cost_matrix):
-    cost = 0
-    for true, pred in zip(y_true, y_pred):
-        cost += cost_matrix[to_label(true)][to_label(pred)]
-
-    return cost
-
-def cross_validate(model, x, y, cost_matrix, cv=5):
+def cross_validate(model, x, y, cv=5):
     kf = KFold(n_splits=5, random_state=42, shuffle=True)
 
     results = {
         "accuracy": [],
-        "cost": [],
         "f1": []
     }
 
@@ -48,21 +36,15 @@ def cross_validate(model, x, y, cost_matrix, cv=5):
 
         results["accuracy"].append(accuracy_score(y_true, predictions))
         results["f1"].append(f1_score(y_true, predictions))
-        results["cost"].append(classification_cost(y_true, predictions, cost_matrix))
 
     return results
 
-cost_matrix = [
-    [0, 1], # Actual 0, predicted 0 and 1 respectively
-    [5, 0]  # Actual 1, predicted 0 and 1 respectively
-]
 
 # Techniques format:
-# Class name and named arguments (model and cost_matrix will be given automatically)
+# Class name and named arguments (model will be given automatically)
 techniques = {
     "Base": (Base, {}),
-    "CSRoulette": (CSRoulette, {"n_estimators": 10}),
-    "Costing": (Costing, {"n_estimators": 10})
+    "EasyEnsemble": (EasyEnsemble, {"n_estimators": 10})
 }
 
 models = {
@@ -88,13 +70,13 @@ for technique_name in techniques:
 
     for model_name in models:
         model = models[model_name]
-        technique_estimator = technique_class(model, cost_matrix, **technique_kwargs)
+        technique_estimator = technique_class(model, **technique_kwargs)
 
         scores = cross_validate(
             technique_estimator,
             np.asarray(dataset.get_x()),
             np.asarray(dataset.get_y()),
-            cost_matrix, cv=5)
+            cv=5)
 
         model_scores[model_name] = {}
         for score in scores:

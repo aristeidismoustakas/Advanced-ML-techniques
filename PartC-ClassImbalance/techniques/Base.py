@@ -2,7 +2,7 @@ from .Technique import Technique
 
 class Base(Technique):
 
-    def __init__(self, model, cost_matrix):
+    def __init__(self, model):
         self._base_classifier = model
 
     def fit(self, train_x, train_y):
