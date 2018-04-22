@@ -4,7 +4,7 @@ sys.path.insert(0, 'PartC-ClassImbalance')
 
 import numpy as np
 from techniques.Base import Base
-from techniques.EasyEnsemble import EasyEnsemble
+from techniques.EasyEnsembleTechnique import EasyEnsembleTechnique
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
 from sklearn.model_selection import KFold
@@ -44,7 +44,7 @@ def cross_validate(model, x, y, cv=5):
 # Class name and named arguments (model will be given automatically)
 techniques = {
     "Base": (Base, {}),
-    "EasyEnsemble": (EasyEnsemble, {"n_estimators": 10})
+    "EasyEnsemble": (EasyEnsembleTechnique, {"n_estimators": 10})
 }
 
 models = {

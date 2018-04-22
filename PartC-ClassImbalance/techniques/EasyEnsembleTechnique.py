@@ -1,22 +1,23 @@
 from sklearn.base import BaseEstimator, ClassifierMixin, clone
 import numpy as np
+import pandas as pd
 from imblearn.ensemble import EasyEnsemble
 
-class EasyEnsemble(BaseEstimator, ClassifierMixin):
+class EasyEnsembleTechnique(BaseEstimator, ClassifierMixin):
 
     def __init__(self, base_classifier, n_estimators=10):
-        super(EasyEnsemble, self).__init__()
+        super(EasyEnsembleTechnique, self).__init__()
         self._no_of_estimators = n_estimators
         self._estimators = []
         self._base_classifier = base_classifier
 
     def fit(self, train_x, train_y):
         self._estimators = []
-        ee = EasyEnsemble(random_state=42, replacement=True, n_subsets=self._no_of_estimators)
+        ee = EasyEnsemble(replacement=True, n_subsets=self._no_of_estimators)
         X_res, y_res = ee.fit_sample(train_x, train_y)
 
         for i in range(self._no_of_estimators):
-            X, y = X_res[i,:,:], y_res[i,:,:]
+            X, y = X_res[i,:,:], y_res[i,:]
 
             estimator = clone(self._base_classifier)
             estimator.fit(X, y)
