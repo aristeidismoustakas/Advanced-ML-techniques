@@ -44,6 +44,7 @@ class Costing(BaseEstimator, ClassifierMixin):
         X = np.asarray(X)
         y = np.asarray(y)
         selected = []
+
         if C == None:
             C = np.max(np.asarray(self._cost_matrix))
 
@@ -54,6 +55,7 @@ class Costing(BaseEstimator, ClassifierMixin):
                 current_cost = self._cost_matrix[1][0]
 
             random_num = random.random()
-            if random_num <= current_cost/C:
+            if random_num <= float(current_cost)/C:
                 selected.append(i)
+
         return X[selected, :], y[selected]

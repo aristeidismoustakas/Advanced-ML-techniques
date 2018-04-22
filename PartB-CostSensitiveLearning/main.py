@@ -1,4 +1,7 @@
 import os
+if not os.path.exists("datasets"):
+    os.chdir("../")
+
 import sys
 sys.path.insert(0, 'PartB-CostSensitiveLearning')
 
@@ -13,9 +16,6 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC
 
 from datasets.HeartDataset import HeartDataset
-
-if not os.path.exists("datasets"):
-    os.chdir("..")
 
 dataset = HeartDataset('datasets/files/heart.dat')
 dataset.preprocessing()
