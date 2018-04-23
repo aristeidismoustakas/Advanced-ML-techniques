@@ -1,4 +1,4 @@
-from Technique import Technique
+from .Technique import Technique
 from sklearn.base import BaseEstimator, ClassifierMixin, clone
 from imblearn.under_sampling import NearMiss
 

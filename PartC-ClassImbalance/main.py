@@ -7,11 +7,13 @@ from techniques.Base import Base
 from techniques.EasyEnsembleTechnique import EasyEnsembleTechnique
 from techniques.SMOTETechnique import SMOTETechnique
 from techniques.NearMissTechnique import NearMissTechnique
+from imblearn.metrics import geometric_mean_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score, recall_score
 from sklearn.model_selection import KFold
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import LinearSVC
+from sklearn.metrics import roc_auc_score
 
 from datasets.CreditCardFraudDataset import CreditCardFraudDataset
 
@@ -28,7 +30,9 @@ def cross_validate(model, x, y, cv=5):
     results = {
         "recall": [],
         "accuracy": [],
-        "f1": []
+        "f1": [],
+        "geometric-gmean": [],
+        "roc_auc_score": []
     }
 
     for train_index, test_index in kf.split(x):
@@ -40,15 +44,17 @@ def cross_validate(model, x, y, cv=5):
         results["recall"].append(recall_score(y_true, predictions))
         results["accuracy"].append(accuracy_score(y_true, predictions))
         results["f1"].append(f1_score(y_true, predictions))
+        results["geometric-gmean"].append(geometric_mean_score(y_true, predictions, average='weighted'))
+        results["roc_auc_score"].append(roc_auc_score(y_true, predictions))
 
     return results
 
 # Techniques format:
 # Class name and named arguments (model will be given automatically)
 techniques = {
-    # "Base": (Base, {}),
-    # "EasyEnsemble": (EasyEnsembleTechnique, {"n_estimators": 10}),
-    # "SMOTETechnique": (SMOTETechnique, {}),
+    "Base": (Base, {}),
+    "EasyEnsemble": (EasyEnsembleTechnique, {"n_estimators": 10}),
+    "SMOTETechnique": (SMOTETechnique, {}),
     "NearMiss1": (NearMissTechnique, {"version": 1}),
     "NearMiss2": (NearMissTechnique, {"version": 2}),
     "NearMiss3": (NearMissTechnique, {"version": 3})
