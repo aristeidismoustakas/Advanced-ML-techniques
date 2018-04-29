@@ -48,7 +48,11 @@ scoring = {
     'f1_macro': 'f1_macro'
 }
 
-final_results = pd.DataFrame(index=datasets.keys(), columns=models.keys())
+final_dfs = {}
+
+for metric in scoring:
+    final_dfs[metric] = pd.DataFrame(index=datasets.keys(), columns=models.keys())
+
 results = {}
 
 
@@ -88,7 +92,10 @@ for dataset_name in datasets:
 
         for metric in results[dataset_name][model_name]:
             print('\t\t{}: {}'.format(metric, results[dataset_name][model_name][metric]))
-        final_results.loc[dataset_name, model_name] = results[dataset_name][model_name]['accuracy']
+            final_dfs[metric].loc[dataset_name, model_name] = results[dataset_name][model_name][metric]
 
-average_ranks = calculate_ranks(final_results)
-print('\nThe average ranks of the algorithms are:\n {}'.format(average_ranks))
+for metric in scoring:
+    df = final_dfs[metric]
+    average_ranks = calculate_ranks(df)
+    print("Average ranks for {}:".format(metric))
+    print(average_ranks)
