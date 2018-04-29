@@ -1,8 +1,7 @@
-from .Technique import Technique
-from sklearn.base import BaseEstimator, ClassifierMixin, clone
+from sklearn.base import BaseEstimator, ClassifierMixin
 from imblearn.under_sampling import NearMiss
 
-class NearMissTechnique(Technique, BaseEstimator, ClassifierMixin):
+class NearMissTechnique(BaseEstimator, ClassifierMixin):
 
     def __init__(self, base_classifier, version=1, ratio="auto", n_neighbours=3):
         self.version = version

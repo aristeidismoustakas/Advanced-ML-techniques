@@ -1,8 +1,7 @@
-from Technique import Technique
 from sklearn.base import BaseEstimator, ClassifierMixin, clone
 import numpy as np
 
-class CSRoulette(Technique, BaseEstimator, ClassifierMixin):
+class CSRoulette(BaseEstimator, ClassifierMixin):
 
     def __init__(self, base_classifier, cost_matrix, n_estimators=10):
         super(CSRoulette, self).__init__()

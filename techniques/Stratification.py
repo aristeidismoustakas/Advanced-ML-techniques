@@ -1,7 +1,5 @@
 from sklearn.base import BaseEstimator, ClassifierMixin,clone
-import pandas as pd
 import numpy as np
-
 
 class Stratification(BaseEstimator, ClassifierMixin):
 

@@ -1,5 +1,4 @@
-from sklearn.base import BaseEstimator, ClassifierMixin, clone
-import numpy as np
+from sklearn.base import BaseEstimator, ClassifierMixin
 from imblearn.over_sampling import SMOTE
 
 class SMOTETechnique(BaseEstimator, ClassifierMixin):

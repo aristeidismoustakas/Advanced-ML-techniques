@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import Orange
 from datasets.BankCustomerDataset import BankCustomerDataset
 from datasets.CarEvaluationDataset import CarEvaluationDataset
 from datasets.ImageSegmentationDataset import ImageSegmentationDataset
@@ -16,16 +17,13 @@ from sklearn.ensemble.bagging import BaggingClassifier
 from sklearn.ensemble.forest import RandomForestClassifier
 from sklearn.model_selection import cross_validate
 from sklearn.tree import DecisionTreeClassifier
-
-import os
-if not os.path.exists("datasets"):
-    os.chdir("..")
+import matplotlib.pyplot as plt
 
 datasets = {
     "Yeast": YeastDataset("datasets/files/yeast.data"),
     "Car Evaluation": CarEvaluationDataset("datasets/files/car.data"),
     "Letter Recognition Dataset": LetterRecognitionDataset("datasets/files/letter-recognition.data"),
-    "Image Segmantation Dataset": ImageSegmentationDataset("datasets/files/segmentation.data"),
+    "Image Segmentation Dataset": ImageSegmentationDataset("datasets/files/segmentation.data"),
     'Wine Quality': WineQualityDataset('datasets/files/winequality'),
     'Income Evaluation': IncomeDataset('datasets/files/income.data'),
     'Bank Customer': BankCustomerDataset('datasets/files/bank-additional.csv'),
@@ -83,6 +81,13 @@ for dataset_name in datasets:
 
     results[dataset_name] = model_results
 
+for dataset in datasets:
+    line = dataset + ", "
+    for model in models:
+        line += str(results[dataset][model]["accuracy"]) + ", "
+
+    print(line)
+
 print('Results:')
 for dataset_name in datasets:
     print('Dataset: {}'.format(dataset_name))
@@ -97,5 +102,10 @@ for dataset_name in datasets:
 for metric in scoring:
     df = final_dfs[metric]
     average_ranks = calculate_ranks(df)
+
     print("Average ranks for {}:".format(metric))
     print(average_ranks)
+
+    cd = Orange.evaluation.compute_CD(average_ranks, len(datasets))
+    Orange.evaluation.graph_ranks(average_ranks, names=list(df), cd=cd, width=10, textspace=1.5)
+    plt.savefig("cd_diagram_{}.png".format(metric))

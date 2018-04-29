@@ -1,6 +1,5 @@
 from sklearn.base import BaseEstimator, ClassifierMixin, clone
 import numpy as np
-import pandas as pd
 from imblearn.ensemble import EasyEnsemble
 
 class EasyEnsembleTechnique(BaseEstimator, ClassifierMixin):
