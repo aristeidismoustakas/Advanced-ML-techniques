@@ -16,7 +16,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble.bagging import BaggingClassifier
 from sklearn.ensemble.forest import RandomForestClassifier
 from sklearn.model_selection import cross_validate
-from sklearn.tree import DecisionTreeClassifier
+from scipy.stats import friedmanchisquare
 import matplotlib.pyplot as plt
 
 datasets = {
@@ -33,10 +33,10 @@ datasets = {
 }
 
 models = {
-    'Bagging Classifier': BaggingClassifier(),
-    'Random Forest Classifier': RandomForestClassifier(),
-    'AdaBoost Classifier': AdaBoostClassifier(),
-    'Gradient Boosting Classifier': GradientBoostingClassifier()
+    'Bagging': BaggingClassifier(),
+    'Random Forest': RandomForestClassifier(),
+    'AdaBoost': AdaBoostClassifier(),
+    'Gradient Boosting': GradientBoostingClassifier()
 }
 
 scoring = {
@@ -79,13 +79,6 @@ for dataset_name in datasets:
 
     results[dataset_name] = model_results
 
-for dataset in datasets:
-    line = dataset + ", "
-    for model in models:
-        line += str(results[dataset][model]["accuracy"]) + ", "
-
-    print(line)
-
 print('Results:')
 for dataset_name in datasets:
     print('Dataset: {}'.format(dataset_name))
@@ -99,11 +92,16 @@ for dataset_name in datasets:
 
 for metric in scoring:
     df = final_dfs[metric]
+    df.to_csv("part_a_{}_results.csv".format(metric))
+
     average_ranks = calculate_ranks(df)
 
     print("Average ranks for {}:".format(metric))
     print(average_ranks)
 
+    friedman_chi_square, p_value = friedmanchisquare(*df.values.transpose())
+    print("Friedman's Chi Square: {} Probability of error when rejecting H0: {}".format(friedman_chi_square, p_value))
+
     cd = Orange.evaluation.compute_CD(average_ranks, len(datasets))
-    Orange.evaluation.graph_ranks(average_ranks, names=list(df), cd=cd, width=10, textspace=1.5)
+    Orange.evaluation.graph_ranks(average_ranks, names=list(df), cd=cd, width=6, textspace=1.5)
     plt.savefig("cd_diagram_{}.png".format(metric))
