@@ -47,11 +47,11 @@ def cross_validate(model, x, y, cv=5):
 # Class name and named arguments (model will be given automatically)
 techniques = {
     "Base": (Base, {}),
-    # "EasyEnsemble": (EasyEnsembleTechnique, {"n_estimators": 10}),
-    "SMOTETechnique": (SMOTETechnique, {}),
-    # "NearMiss1": (NearMissTechnique, {"version": 1}),
-    # "NearMiss2": (NearMissTechnique, {"version": 2}),
-    # "NearMiss3": (NearMissTechnique, {"version": 3})
+     "EasyEnsemble": (EasyEnsembleTechnique, {"n_estimators": 10}),
+     "SMOTETechnique": (SMOTETechnique, {}),
+     "NearMiss1": (NearMissTechnique, {"version": 1}),
+     "NearMiss2": (NearMissTechnique, {"version": 2}),
+     "NearMiss3": (NearMissTechnique, {"version": 3})
 
 }
 

@@ -15,6 +15,9 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble.bagging import BaggingClassifier
 from sklearn.ensemble.forest import RandomForestClassifier
+from sklearn.ensemble import VotingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import cross_validate
 from scipy.stats import friedmanchisquare
 import matplotlib.pyplot as plt
@@ -35,8 +38,12 @@ datasets = {
 models = {
     'Bagging': BaggingClassifier(),
     'Random Forest': RandomForestClassifier(),
-    'AdaBoost': AdaBoostClassifier(),
     'Gradient Boosting': GradientBoostingClassifier()
+    'Voting Classifier': VotingClassifier(estimators=[
+                        ('lr', LogisticRegression(random_state=1)),
+                        ('rf', RandomForestClassifier(random_state=1)),
+                        ('gnb', GaussianNB())],
+                        voting='hard')
 }
 
 scoring = {
