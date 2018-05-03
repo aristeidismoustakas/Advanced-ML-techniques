@@ -38,7 +38,7 @@ datasets = {
 models = {
     'Bagging': BaggingClassifier(),
     'Random Forest': RandomForestClassifier(),
-    'Gradient Boosting': GradientBoostingClassifier()
+    'Gradient Boosting': GradientBoostingClassifier(),
     'Voting Classifier': VotingClassifier(estimators=[
                         ('lr', LogisticRegression(random_state=1)),
                         ('rf', RandomForestClassifier(random_state=1)),
